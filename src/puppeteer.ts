@@ -93,9 +93,16 @@ async function skipOnboarding(page: Page) {
 }
 
 async function joinMeet(page: Page) {
-  logger.info("joining meet");
+  try {
+    logger.info("Try joining meet");
+    await getByRole(page, "button", "Join now")?.click();
+    return;
+  } catch (e) {}
 
-  await getByRole(page, "button", "Join now")?.click();
+  try {
+    logger.info("Can't join automatically, ask to join");
+    await getByRole(page, "button", "Ask to join")?.click();
+  } catch (e) {}
 }
 
 async function getMeetingName(page: Page) {
