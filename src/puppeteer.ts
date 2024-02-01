@@ -107,6 +107,13 @@ async function getMeetingName(page: Page) {
   } catch (e) {}
 }
 
-function getByRole(page: Page, role: string, label: string) {
-  return page.locator(`::-p-aria([role="${role}"][name="${label}"])`);
+function getByRole(
+  page: Page,
+  role: string,
+  label: string,
+  timeout: number = 5000
+) {
+  return page
+    .locator(`::-p-aria([role="${role}"][name="${label}"])`)
+    .setTimeout(timeout);
 }
