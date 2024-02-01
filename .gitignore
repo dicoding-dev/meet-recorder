@@ -1,0 +1,4 @@
+.env
+node_modules/
+playwright-user-data/
+videos/

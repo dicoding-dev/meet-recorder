@@ -1,0 +1,24 @@
+{
+  "name": "meet-recorder",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Rizqy H. <rizqy@dicoding.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx ./src/playwright.ts",
+    "pptr": "tsx ./src/puppeteer.ts"
+  },
+  "dependencies": {
+    "@playwright/browser-chromium": "^1.40.1",
+    "dotenv": "^16.4.1",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1",
+    "playwright": "^1.40.1",
+    "puppeteer": "^21.9.0",
+    "puppeteer-stream": "^3.0.7"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0"
+  }
+}
