@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { WriteStream, createWriteStream } from "fs";
 import puppeteer, { Page } from "puppeteer";
 import { launch, getStream } from "puppeteer-stream";
@@ -6,10 +5,11 @@ import { logger } from "./logging";
 import { generateVideoFilename } from "./utils";
 import { Transform } from "stream";
 
-const googleAccount = process.env.GOOGLE_EMAIL as string;
-const googlePassword = process.env.GOOGLE_PASSWORD as string;
-
-export async function recordMeeting(meetUrl: string) {
+export async function recordMeeting(
+  meetUrl: string,
+  googleAccount: string,
+  googlePassword: string
+) {
   logger.info("Starting browser");
 
   const browser = await launch({

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { recordMeeting } from "./recorder";
@@ -18,5 +19,8 @@ const args = yargs(hideBin(process.argv))
   .parse();
 
 (async () => {
-  await recordMeeting(args.url);
+  const googleAccount = process.env.GOOGLE_EMAIL as string;
+  const googlePassword = process.env.GOOGLE_PASSWORD as string;
+
+  await recordMeeting(args.url, googleAccount, googlePassword);
 })();
