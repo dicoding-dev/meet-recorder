@@ -26,6 +26,9 @@ dependencies:
   puppeteer-stream:
     specifier: ^3.0.7
     version: 3.0.7
+  yargs:
+    specifier: ^17.7.2
+    version: 17.7.2
 
 devDependencies:
   tsx:
