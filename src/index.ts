@@ -1,5 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import { recordMeeting } from "./recorder";
 
 const args = yargs(hideBin(process.argv))
   .option("url", {
@@ -15,3 +16,7 @@ const args = yargs(hideBin(process.argv))
     return true;
   })
   .parse();
+
+(async () => {
+  await recordMeeting(args.url);
+})();

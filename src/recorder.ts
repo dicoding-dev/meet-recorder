@@ -6,11 +6,10 @@ import { logger } from "./logging";
 import { generateVideoFilename } from "./utils";
 import { Transform } from "stream";
 
-const meetUrl = "https://meet.google.com/iks-eack-bbb";
 const googleAccount = process.env.GOOGLE_EMAIL as string;
 const googlePassword = process.env.GOOGLE_PASSWORD as string;
 
-(async () => {
+export async function recordMeeting(meetUrl: string) {
   logger.info("Starting browser");
 
   const browser = await launch({
@@ -53,7 +52,7 @@ const googlePassword = process.env.GOOGLE_PASSWORD as string;
     logger.info("Browser disconnected, stopping screen record");
     await cleanup(stream, file);
   });
-})();
+}
 
 async function cleanup(stream: Transform, file: WriteStream) {
   await stream.destroy();
