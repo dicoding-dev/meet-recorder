@@ -24,8 +24,8 @@ dependencies:
     specifier: ^21.9.0
     version: 21.9.0
   puppeteer-stream:
-    specifier: ^3.0.7
-    version: 3.0.7
+    specifier: github:rizqyhi/puppeteer-stream#feature/assign-random-port
+    version: github.com/rizqyhi/puppeteer-stream/7e5ddc40cdf03f63e03134119df2a5a98fa383b0
   yargs:
     specifier: ^17.7.2
     version: 17.7.2
@@ -713,6 +713,11 @@ packages:
     engines: {node: 6.* || 8.* || >= 10.*}
     dev: false
 
+  /get-port@7.0.0:
+    resolution: {integrity: sha512-mDHFgApoQd+azgMdwylJrv2DX47ywGq1i5VFJE7fZ0dttNq3iQMfsU4IvEgBHojA3KqEudyu7Vq+oN8kNaNkWw==}
+    engines: {node: '>=16'}
+    dev: false
+
   /get-stream@5.2.0:
     resolution: {integrity: sha512-nBF+F1rAZVCu/p7rjzgA+Yb4lfYXrpl7a6VmJrU8wF9I1CKvP/QwPNZHnOlwbTkY6dvtFIzFMSyQXbLoTQPRpA==}
     engines: {node: '>=8'}
@@ -1089,19 +1094,6 @@ packages:
       - utf-8-validate
     dev: false
 
-  /puppeteer-stream@3.0.7:
-    resolution: {integrity: sha512-OLPZROoEf7IQIHs4mFAxJrSPlmKFSuPtfb2koPVXBSr9VaNzSO/8AGwrICyFqVSXmRnPgasgGKV3rDIwCZrAXg==}
-    dependencies:
-      puppeteer-core: 20.9.0
-      ws: 8.16.0
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - supports-color
-      - typescript
-      - utf-8-validate
-    dev: false
-
   /puppeteer@21.9.0:
     resolution: {integrity: sha512-vcLR81Rp+MBrgqhiXZfpwEBbyKTa88Hd+8Al3+emWzcJb9evLLSfUYli0QUqhofPFrXsO2A/dAF9OunyOivL6w==}
     engines: {node: '>=16.13.2'}
@@ -1411,4 +1403,20 @@ packages:
     dependencies:
       buffer-crc32: 0.2.13
       fd-slicer: 1.1.0
+    dev: false
+
+  github.com/rizqyhi/puppeteer-stream/7e5ddc40cdf03f63e03134119df2a5a98fa383b0:
+    resolution: {tarball: https://codeload.github.com/rizqyhi/puppeteer-stream/tar.gz/7e5ddc40cdf03f63e03134119df2a5a98fa383b0}
+    name: puppeteer-stream
+    version: 3.0.7
+    dependencies:
+      get-port: 7.0.0
+      puppeteer-core: 20.9.0
+      ws: 8.16.0
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - typescript
+      - utf-8-validate
     dev: false

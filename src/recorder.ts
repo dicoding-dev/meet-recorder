@@ -1,6 +1,6 @@
 import { WriteStream, createWriteStream } from "fs";
 import puppeteer from "puppeteer";
-import { launch, getStream } from "puppeteer-stream";
+import { launch, getStream } from "puppeteer-stream/src/PuppeteerStream";
 import { logger } from "./logging";
 import { generateVideoFilename } from "./utils";
 import { Transform } from "stream";
