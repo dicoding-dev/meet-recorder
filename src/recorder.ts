@@ -23,6 +23,15 @@ export async function recordMeeting(
   // @ts-ignore
   await joinMeet(page);
 
+  // @ts-ignore
+  await page
+    .locator(`::-p-aria([role="button"][name="Show everyone"])`)
+    .click();
+  // // @ts-ignore
+  await page
+    .locator(`::-p-aria([role="button"][name="Show everyone"])`)
+    .click();
+
   const file = createWriteStream(
     __dirname +
       `/../videos/${generateVideoFilename(new URL(meetUrl).pathname.slice(1))}`
@@ -39,6 +48,11 @@ export async function recordMeeting(
         await cleanup(stream, file);
       }, 2000);
     })
+    .then(() =>
+      page.exposeFunction("SET_PARTICIPANTS_COUNT", (participantsCount) => {
+        logger.info("Current participants: " + participantsCount);
+      })
+    )
     .then(() => page.waitForSelector('button[aria-label="Leave call"]'))
     .then(() =>
       page.evaluate(() => {
@@ -48,6 +62,16 @@ export async function recordMeeting(
             "click",
             async () => await window.FINISH_RECORDING()
           );
+      })
+    )
+    .then(() =>
+      page.evaluate(() => {
+        setInterval(async () => {
+          const participantsCount = document.querySelector(
+            '[role="button"] h2 div:last-child'
+          )?.innerText;
+          await window.SET_PARTICIPANTS_COUNT(parseInt(participantsCount));
+        }, 4000);
       })
     );
 
