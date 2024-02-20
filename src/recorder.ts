@@ -32,6 +32,25 @@ export async function recordMeeting(
   logger.info("Starting screen record");
   stream.pipe(file);
 
+  page
+    .exposeFunction("FINISH_RECORDING", () => {
+      logger.info("Client request finish recording");
+      setTimeout(async () => {
+        await cleanup(stream, file);
+      }, 2000);
+    })
+    .then(() => page.waitForSelector('button[aria-label="Leave call"]'))
+    .then(() =>
+      page.evaluate(() => {
+        document
+          .querySelector('button[aria-label="Leave call"]')
+          ?.addEventListener(
+            "click",
+            async () => await window.FINISH_RECORDING()
+          );
+      })
+    );
+
   // @todo: close browser when exited the meeting
   browser.on("disconnected", async () => {
     logger.info("Browser disconnected, stopping screen record");
