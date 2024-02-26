@@ -7,6 +7,8 @@ import { generateVideoFilename } from "./utils";
 import { Transform } from "stream";
 import { login, skipOnboarding, joinMeet } from "./automation";
 
+const AUTO_FINISH_TIMEOUT_IN_MINUTES = 120;
+
 export async function recordMeeting(
   meetUrl: string,
   outputDirectory: string,
@@ -88,6 +90,13 @@ export async function recordMeeting(
     logger.info("Browser disconnected, stopping screen record");
     await cleanup(stream, file);
   });
+
+  setTimeout(async () => {
+    logger.info(
+      `Reaching maximum set timeout at ${AUTO_FINISH_TIMEOUT_IN_MINUTES} minutes, stopping screen record`
+    );
+    await cleanup(stream, file);
+  }, AUTO_FINISH_TIMEOUT_IN_MINUTES * 60 * 1000);
 }
 
 async function createBrowserPage() {
