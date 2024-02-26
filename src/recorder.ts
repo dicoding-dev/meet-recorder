@@ -114,7 +114,7 @@ async function createBrowserPage() {
     ],
   });
   const context = browser.defaultBrowserContext();
-  const page = await context.newPage();
+  const [page] = await browser.pages();
 
   await context.overridePermissions("https://meet.google.com", []);
 
