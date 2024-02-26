@@ -1,4 +1,5 @@
 import { WriteStream, createWriteStream } from "fs";
+import path from "path";
 import puppeteer from "puppeteer";
 import { launch, getStream } from "puppeteer-stream/src/PuppeteerStream";
 import { logger } from "./logging";
@@ -8,6 +9,7 @@ import { login, skipOnboarding, joinMeet } from "./automation";
 
 export async function recordMeeting(
   meetUrl: string,
+  outputDirectory: string,
   googleAccount: string,
   googlePassword: string
 ) {
@@ -33,8 +35,10 @@ export async function recordMeeting(
     .click();
 
   const file = createWriteStream(
-    __dirname +
-      `/../videos/${generateVideoFilename(new URL(meetUrl).pathname.slice(1))}`
+    path.join(
+      outputDirectory,
+      generateVideoFilename(new URL(meetUrl).pathname.slice(1))
+    )
   );
   const stream = await getStream(page, { audio: true, video: true });
 

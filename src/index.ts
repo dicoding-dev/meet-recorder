@@ -37,5 +37,5 @@ const argv = yargs(hideBin(process.argv))
   const googleAccount = process.env.GOOGLE_EMAIL as string;
   const googlePassword = process.env.GOOGLE_PASSWORD as string;
 
-  await recordMeeting(argv.url, googleAccount, googlePassword);
+  await recordMeeting(argv.url, argv.outDir, googleAccount, googlePassword);
 })();
