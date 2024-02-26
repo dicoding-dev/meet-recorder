@@ -1,12 +1,10 @@
 import pino from "pino";
 
-/**
- * @todo
- * [] Stream log to file
- * [] Rotate log file daily
- */
-export const logger = pino({
-  transport: {
-    target: "pino-pretty",
-  },
+const transport = pino.transport({
+  targets: [
+    { target: "pino-pretty" },
+    { target: "pino/file", options: { destination: "./recorder.log" } },
+  ],
 });
+
+export const logger = pino(transport);
