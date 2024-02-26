@@ -64,6 +64,7 @@ export async function recordMeeting(
           .querySelector('button[aria-label="Leave call"]')
           ?.addEventListener(
             "click",
+            // @ts-expect-error
             async () => await window.FINISH_RECORDING()
           );
       })
@@ -71,15 +72,18 @@ export async function recordMeeting(
     .then(() =>
       page.evaluate(() => {
         setInterval(async () => {
-          const participantsCount = document.querySelector(
-            '[role="button"] h2 div:last-child'
+          const participantsCount = (
+            document.querySelector(
+              '[role="button"] h2 div:last-child'
+            ) as HTMLElement
           )?.innerText;
+
+          // @ts-expect-error
           await window.SET_PARTICIPANTS_COUNT(parseInt(participantsCount));
         }, 4000);
       })
     );
 
-  // @todo: close browser when exited the meeting
   browser.on("disconnected", async () => {
     logger.info("Browser disconnected, stopping screen record");
     await cleanup(stream, file);
