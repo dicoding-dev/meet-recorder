@@ -49,7 +49,7 @@ export async function recordMeeting(
 
   page
     .exposeFunction("FINISH_RECORDING", () => {
-      logger.info("Client request finish recording");
+      logger.info("Client request finish recording, stopping screen record");
       setTimeout(async () => {
         await cleanup(stream, file);
       }, 2000);
@@ -122,10 +122,10 @@ async function createBrowserPage() {
 }
 
 async function cleanup(stream: Transform, file: WriteStream) {
+  logger.info("Closing video stream");
   await stream.destroy();
+  logger.info("Closing file stream");
   file.close();
-
-  logger.info("Finished, cleaning up");
-
+  logger.info("Exiting process");
   process.exit();
 }
